@@ -12,7 +12,7 @@ senderWs.on('open', () => {
 });
 
 senderWs.on('message', (message) => {
-    console.log('Received message from server URL:', message);
+    console.log('Received message from server URL:', JSON.parse(message));
     // Broadcast the message to all connected clients
     wss.clients.forEach((client) => {
         client.send(message);
