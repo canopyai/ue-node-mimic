@@ -1,4 +1,5 @@
 const WebSocket = require('ws');
+const fs = require('fs');
 
 const wss = new WebSocket.Server({ port: 8080, host: '0.0.0.0' });
 
@@ -13,6 +14,14 @@ senderWs.on('open', () => {
 
 senderWs.on('message', (message) => {
     console.log('Received message from server URL:', JSON.parse(message));
+    // Save the message to a JSON file
+    fs.writeFile('data.json', JSON.stringify(JSON.parse(message)), (err) => {
+        if (err) {
+            console.error('Error saving message to JSON file:', err);
+        } else {
+            console.log('Message saved to JSON file successfully.');
+        }
+    });
     // Broadcast the message to all connected clients
     wss.clients.forEach((client) => {
         client.send(message);
