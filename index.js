@@ -20,13 +20,15 @@ senderWs.on('message', (message) => {
         console.log("conv index cutoff", conversationIndex)
     } else {
         console.log("animationDataIndex", conversationIndex)
-        
+
 
         senderWs.send(JSON.stringify({
             messageType: "updateThread",
             numberOfVisemesPlayed: visemes.length,
             uuid
         }));
+
+        console.log("sent data back")
     }
 
 
