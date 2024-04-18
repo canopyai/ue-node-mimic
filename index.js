@@ -14,12 +14,18 @@ senderWs.on('open', () => {
 
 senderWs.on('message', (message) => {
 
-    const {messageType, data, conversationIndex} = JSON.parse(message);
+    const {messageType, data, conversationIndex, uuid, visemes} = JSON.parse(message);
 
     if(messageType === "clearQueue") {
         console.log("conv index cutoff", conversationIndex)
     } else {
         console.log("animationDataIndex", conversationIndex)
+
+        senderWs.send(JSON.stringify({
+            messageType: "updateThread",
+            numberOfVisemesPlayed: visemes.length,
+            uuid
+        }));
     }
 
 
