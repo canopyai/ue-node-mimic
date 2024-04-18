@@ -14,18 +14,22 @@ senderWs.on('open', () => {
 
 senderWs.on('message', (message) => {
     console.log('Received message from server URL:', JSON.parse(message));
+
+    const {messageType, data, conversationIndex} = JSON.parse(message);
+
+    if(messageType === "clearQueue") {
+        console.log("conv index cutoff", conversationIndex)
+    } else {
+        console.log("animationDataIndex", conversationIndex)
+    }
+
+
     // Save the message to a JSON file
-    fs.writeFile('data.json', JSON.stringify(JSON.parse(message)), (err) => {
-        if (err) {
-            console.error('Error saving message to JSON file:', err);
-        } else {
-            console.log('Message saved to JSON file successfully.');
-        }
-    });
+
     // Broadcast the message to all connected clients
-    wss.clients.forEach((client) => {
-        client.send(message);
-    });
+    // wss.clients.forEach((client) => {
+    //     client.send(message);
+    // });
 });
 
 senderWs.on('close', () => {
