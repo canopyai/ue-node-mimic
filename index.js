@@ -13,7 +13,6 @@ senderWs.on('open', () => {
 });
 
 senderWs.on('message', (message) => {
-    console.log('Received message from server URL:', JSON.parse(message));
 
     const {messageType, data, conversationIndex} = JSON.parse(message);
 
