@@ -16,10 +16,9 @@ senderWs.on('message', (message) => {
 
     const {messageType, data, conversationIndex, uuid, visemes} = JSON.parse(message);
 
-    if(messageType === "clearQueue") {
-        console.log("conv index cutoff", conversationIndex)
+    if(messageType === "emotionsNonSpeaking") {
+        console.log('Received message:', JSON.parse(message));
     } else {
-        console.log("animationDataIndex", conversationIndex)
 
 
         senderWs.send(JSON.stringify({
@@ -28,7 +27,6 @@ senderWs.on('message', (message) => {
             uuid
         }));
 
-        console.log("sent data back")
     }
 
 
