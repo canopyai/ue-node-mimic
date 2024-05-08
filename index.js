@@ -18,8 +18,8 @@ senderWs.on('message', (message) => {
 
     if(messageType === "emotionsNonSpeaking") {
         console.log('Received message:', JSON.parse(message));
-        for(let targets in visemes){
-            console.log(targets)
+        for(let targets of visemes){
+            console.log(targets.length)
         }
     } else {
 
