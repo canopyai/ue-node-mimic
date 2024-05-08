@@ -21,11 +21,14 @@ senderWs.on('message', (message) => {
     } else {
 
 
-        senderWs.send(JSON.stringify({
-            messageType: "updateThread",
-            numberOfVisemesPlayed: visemes.length,
-            uuid
-        }));
+        if(messageType === "updateThread") {
+            senderWs.send(JSON.stringify({
+                messageType: "updateThread",
+                numberOfVisemesPlayed: visemes.length,
+                uuid
+            }));
+        }
+
 
     }
 
