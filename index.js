@@ -25,7 +25,7 @@ senderWs.on('message', (message) => {
         } else {
 
 
-            if (messageType === "updateThread" && uuid) {
+            if (messageType === "animationData" && uuid) {
                 senderWs.send(JSON.stringify({
                     messageType: "updateThread",
                     numberOfVisemesPlayed: visemes.length,
