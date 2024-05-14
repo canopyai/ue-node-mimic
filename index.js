@@ -14,34 +14,38 @@ senderWs.on('open', () => {
 
 senderWs.on('message', (message) => {
 
-    const {messageType, data, conversationIndex, uuid, visemes} = JSON.parse(message);
+    try {
+        const { messageType, data, conversationIndex, uuid, visemes } = JSON.parse(message);
 
-    if(messageType === "emotionsNonSpeaking") {
-        console.log('Received message:', JSON.parse(message));
-        for(let targets of visemes){
-            console.log(targets)
+        if (messageType === "emotionsNonSpeaking") {
+            console.log('Received message:', JSON.parse(message));
+            for (let targets of visemes) {
+                console.log(targets)
+            }
+        } else {
+
+
+            if (messageType === "updateThread" && uuid) {
+                senderWs.send(JSON.stringify({
+                    messageType: "updateThread",
+                    numberOfVisemesPlayed: visemes.length,
+                    uuid
+                }));
+            }
+
+
         }
-    } else {
 
 
-        if(messageType === "updateThread" && uuid) {
-            senderWs.send(JSON.stringify({
-                messageType: "updateThread",
-                numberOfVisemesPlayed: visemes.length,
-                uuid
-            }));
-        }
+        // Save the message to a JSON file
 
-
+        // Broadcast the message to all connected clients
+        // wss.clients.forEach((client) => {
+        //     client.send(message);
+        // });
+    } catch (e) {
+        console.log(e)
     }
-
-
-    // Save the message to a JSON file
-
-    // Broadcast the message to all connected clients
-    // wss.clients.forEach((client) => {
-    //     client.send(message);
-    // });
 });
 
 senderWs.on('close', () => {
